@@ -9,15 +9,13 @@ public static class Arrays
     public static double[] MultiplesOf(double number, int length)
     {
         // TODO Problem 1 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
-        double[] multiples = new double[length];
-        for (int i = 0; i < length; i++)
+        
+        double[] multiples = new double[length]; // Create an empty array of doubles with exact length of elements to store in
+        for (int i = 0; i < length; i++) // For loop is used to iterate 'length' times (i = 0; i > length)
         {
-            multiples[i] = number * (i + 1);
+            multiples[i] = number * (i + 1); // For each iteration i, calculates the multiples 
         }
-        return multiples; // replace this return statement with your own
+        return multiples; // The multiples array is returned after the loop is complete
     }
 
     /// <summary>
@@ -30,16 +28,14 @@ public static class Arrays
     public static void RotateListRight(List<int> data, int amount)
     {
         // TODO Problem 2 Start
-        // Remember: Using comments in your program, write down your process for solving this problem
-        // step by step before you write the code. The plan should be clear enough that it could
-        // be implemented by another person.
+       //  
 
-        if(data.Count == 0)
-        return;
+        if(data.Count == 0) // Since we are working with list we use count to find the number of elements in the collection
+        return;             // If list is empty then we do nothing
 
         int n = data.Count;
-        List<int> tail = data.GetRange(n - amount, amount);
-        data.InsertRange(0, tail);
-        data.RemoveRange(n, amount);
+        List<int> lastAmount = data.GetRange(n - amount, amount); // Get the last amount element using the GetRange method; this gives a new list to move to the front
+        data.InsertRange(0, lastAmount);  // insert the new last amount at the beginning of the list using the InsertRange method
+        data.RemoveRange(n, amount); // Remove the lastamount elements using the RemoveRange method
     }
 }
