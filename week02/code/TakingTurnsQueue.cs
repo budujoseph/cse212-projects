@@ -9,9 +9,9 @@
 /// </summary>
 public class TakingTurnsQueue
 {
-    private readonly PersonQueue _people = new();
+    private readonly Queue<Person> _people = new(); // FIFO queue of people
 
-    public int Length => _people.Length;
+    public int Length => _people.Count; // Number of people currently in the queue
 
     /// <summary>
     /// Add new people to the queue with a name and number of turns
@@ -33,23 +33,28 @@ public class TakingTurnsQueue
     /// </summary>
     public Person GetNextPerson()
     {
-        if (_people.IsEmpty())
+        if (_people.Count == 0)
         {
             throw new InvalidOperationException("No one in the queue.");
         }
-        else
+        Person person = _people.Dequeue(); // Get the next person
+
+        if (person.Turns <= 0) // Decrease turns if not infinite
         {
-            Person person = _people.Dequeue();
-            if (person.Turns > 1)
+            _people.Enqueue(person); // Re-add person with infinite turns
+        }
+
+        else if (person.Turns > 0) // If they still have turns (or infinite), add back to queue
+        {
+            person.Turns -= 1; // Decrease turns
+            if(person.Turns > 0) // Only re-add if they have turns left
             {
-                person.Turns -= 1;
                 _people.Enqueue(person);
             }
-
-            return person;
         }
-    }
 
+        return person;
+    }
     public override string ToString()
     {
         return _people.ToString();

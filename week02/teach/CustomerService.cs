@@ -11,24 +11,53 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Can I add one customer and then serve the customer?
+        // Expected Result: Should display the customer that was added
         Console.WriteLine("Test 1");
-
-        // Defect(s) Found: 
-
+        var cs = new CustomerService(5);
         Console.WriteLine("=================");
+        // Defect(s) Found: This found that the ServeCustomer should get the customer before deleting from the list
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: Can I add multiple customers and then serve them?
+        // Expected Result: Should display all customers in the order they were added
         Console.WriteLine("Test 2");
-
-        // Defect(s) Found: 
+        var cs2 = new CustomerService(5);
+        cs2.AddNewCustomer();
+        cs2.AddNewCustomer();
+        Console.WriteLine($"Before serving customers: {cs2}");
+        cs2.ServeCustomer();
+        cs2.ServeCustomer();
+        Console.WriteLine($"After serving customers: {cs2}");
+        Console.WriteLine("=================");
+        // Defect(s) Found: None :)
 
         Console.WriteLine("=================");
 
-        // Add more Test Cases As Needed Below
+        // Test 3
+        // Scenario: Can I serve a customer if there is no customer?
+        // Expected Result: Should display some error message
+        Console.WriteLine("Test 3");
+        var cs3 = new CustomerService(5);
+        cs3.ServeCustomer();
+        Console.WriteLine("=================");
+        // Defect(s) Found: This found that I need to check the length in serve_customer and display an error message
+
+
+
+        // Test 4
+        // Scenario: Does the max queue size get enforced?
+        // Expected Result: Should display some error message when the max size is exceeded
+        Console.WriteLine("Test 4");
+        var cs4 = new CustomerService(5);
+        cs4.AddNewCustomer();
+        cs4.AddNewCustomer();
+        cs4.AddNewCustomer();
+        cs4.AddNewCustomer();
+        cs4.AddNewCustomer();
+        Console.WriteLine($"Service Queue: {cs4}");
+        Console.WriteLine("=================");
+        // Defect(s) Found: This found that I need to check the length in add_new_customer and display an error message
     }
 
     private readonly List<Customer> _queue = new();
@@ -67,7 +96,7 @@ public class CustomerService {
     /// </summary>
     private void AddNewCustomer() {
         // Verify there is room in the service queue
-        if (_queue.Count > _maxSize) {
+        if (_queue.Count >= _maxSize) {
             Console.WriteLine("Maximum Number of Customers in Queue.");
             return;
         }
