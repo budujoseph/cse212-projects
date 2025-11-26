@@ -214,7 +214,7 @@ public class LinkedList : IEnumerable<int>
         while(curr is not null)
         {
             yield return curr.Data;
-            curr = curr.Prev; // Go backward in the linked list
+            curr = curr.Prev; // Go backward in the linked lismmmmmmmmmmmmmmmm,,,mmmm,,mmmm,m,,m,m, m,m,mmtn
         }
         
     }
